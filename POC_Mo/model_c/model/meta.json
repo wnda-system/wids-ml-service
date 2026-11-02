@@ -1,0 +1,75 @@
+{
+  "name": "awid3-mac-v1",
+  "feature_version": 2,
+  "features": [
+    "deauth",
+    "disassoc",
+    "auth",
+    "assoc_req",
+    "deauth_to_one_client_10s",
+    "deauth_seq_out_of_order",
+    "tsf_offset_switches",
+    "new_bssid_known_ssid",
+    "bssid_beacon_rate",
+    "deauth_per_mgmt",
+    "beacon_per_mgmt",
+    "probe_req_per_mgmt",
+    "rts_per_ctrl",
+    "cts_per_ctrl"
+  ],
+  "classes": [
+    "(Re)Assoc",
+    "Deauth",
+    "Disas",
+    "Evil_Twin",
+    "Kr00k",
+    "Krack",
+    "RogueAP",
+    "SSDP",
+    "normal"
+  ],
+  "thresholds": {
+    "(Re)Assoc": 0.5,
+    "Deauth": 0.5,
+    "Disas": 0.5,
+    "Evil_Twin": 1.01,
+    "Kr00k": 0.5,
+    "Krack": 1.01,
+    "RogueAP": 0.5,
+    "SSDP": 1.01
+  },
+  "class_to_alert_type": {
+    "(Re)Assoc": "Association / reassociation flood (Model C)",
+    "Deauth": "Deauthentication attack (Model C)",
+    "Disas": "Disassociation attack (Model C)",
+    "Evil_Twin": "Evil twin (Model C)",
+    "Kr00k": "Kr00k disassociation attack (Model C)",
+    "Krack": "KRACK key reinstallation (Model C)",
+    "RogueAP": "Rogue AP (Model C)",
+    "SSDP": "SSDP flood (Model C)"
+  },
+  "versions": {
+    "python": "3.12",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0",
+    "python_full": "3.12.12",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.7.0"
+  },
+  "trained_on": "AWID3: 1. Deauth, 2. Disass, 3. (Re)Assoc, 4. Rogue_AP, 5. Krack, 6. Kr00k, 7. Evil_Twin, 11. SSDP pcaps (first 70% of each capture's normal and attack periods); normal hours: 0.66 (AWID3 pre-attack seconds; ours not used for training)",
+  "metrics": {
+    "awid3_recall": {
+      "(Re)Assoc": 0.9574,
+      "Deauth": 1.0,
+      "Disas": 0.9792,
+      "Evil_Twin": 0.0,
+      "Kr00k": 0.875,
+      "Krack": 0.0,
+      "RogueAP": 1.0,
+      "SSDP": 0.0
+    },
+    "ours_false_alarm_events_per_hour": 0.041
+  }
+}

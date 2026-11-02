@@ -1,0 +1,24 @@
+# systemd --user unit for the Model C service.
+# NOT installed yet: needs (1) cluster admin OK to run a persistent service on br1,
+# (2) port 8889 is already allowed by the firewall on ens34, (3) `loginctl enable-linger`.
+# Install:  mkdir -p ~/.config/systemd/user && cp model_c.service ~/.config/systemd/user/
+#           systemctl --user daemon-reload && systemctl --user enable --now model_c.service
+[Unit]
+Description=Model C (awid3-mac-v1) HTTP service
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/experiment_1/model_c/service
+Environment=OMP_NUM_THREADS=2
+Environment=OPENBLAS_NUM_THREADS=1
+Environment=MKL_NUM_THREADS=1
+ExecStart=%h/experiment_1/.venv/bin/python -W ignore -B %h/experiment_1/model_c/service/model_c_service.py --host 0.0.0.0 --port 8889 --threads 2
+Restart=on-failure
+RestartSec=5
+Nice=5
+MemoryMax=2G
+CPUQuota=200%
+
+[Install]
+WantedBy=default.target
